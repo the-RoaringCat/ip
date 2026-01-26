@@ -1,5 +1,6 @@
 public class A9527 {
-    private static final String LINE= "\t____________________________________________________________\n";
+    public static final String LINE= "\t____________________________________________________________\n";
+
 
 
     public static void greetUser() {
@@ -20,6 +21,6 @@ public class A9527 {
 
     public static void main(String[] args) {
         greetUser();
-        byeUser();
+        Echo.echoUser();
     }
 }
