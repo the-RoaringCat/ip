@@ -5,18 +5,26 @@ public class Echo {
     public static void echoUser() {
         String msg;
         Scanner in = new Scanner(System.in);
+        boolean toQuit = false;
 
-        while(true) {
+        while(!toQuit) {
             //polling for input
             msg = in.nextLine();
-            if(msg.equals("bye")) {
-                A9527.byeUser();
-                break;
-            } else {
-                System.out.println(A9527.LINE);
-                System.out.println("\t" + msg);
-                System.out.println(A9527.LINE);
+            switch (msg) {
+                case "bye":
+                    A9527.byeUser();
+                    toQuit = true;
+                    break;
+                case "list":
+                    A9527.printTask();
+                    break;
+                default:
+                    System.out.println(A9527.LINE);
+                    System.out.println("\tadded: " + msg);
+                    A9527.addTask(msg);
+                    System.out.println(A9527.LINE);
             }
+
         }
     }
 
