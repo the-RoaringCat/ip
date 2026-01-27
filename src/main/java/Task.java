@@ -45,7 +45,7 @@ public class Task {
     }
     public Task(String description) {
         this.description = description;
-        this.isDone = isDone;
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
