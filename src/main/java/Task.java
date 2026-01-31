@@ -1,6 +1,6 @@
 public class Task {
-    private static int taskCount = 0;
-    private static Task[] tasks = new Task[100];
+    protected static int taskCount = 0;
+    protected static Task[] tasks = new Task[100];
 
     protected String description;
     protected boolean isDone;
@@ -29,12 +29,12 @@ public class Task {
         }
 
         for (int i = 0; i < taskCount ; i++) {
-            System.out.println("\t" + (i + 1) + "." + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+            System.out.println("\t" + (i + 1) + "." + tasks[i].toString());
         }
     }
 
     public static void printTask(int taskIndex) {
-        System.out.println("\t\t["+ tasks[taskIndex - 1].getStatusIcon() + "] " + tasks[taskIndex - 1].getDescription());
+        System.out.println("\t\t"+ tasks[taskIndex - 1].toString());
     }
 
     public static void unmarkTasksMsg() {
@@ -51,11 +51,14 @@ public class Task {
         tasks[taskIndex - 1].markDone();
     }
 
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "]" + description;
+    }
 
     public String getStatusIcon() {
         return (isDone? "X" : " ");
     }
-
     public String getDescription() {
         return this.description;
     }
@@ -64,7 +67,6 @@ public class Task {
     public void markDone() {
         this.isDone = true;
     }
-
     public void markNotDone() {
         this.isDone = false;
     }
