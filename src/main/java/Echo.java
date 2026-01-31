@@ -5,7 +5,7 @@ public class Echo {
     public static void echoUser() {
         String msg;
         String[] msgs;
-        int taskIndex = 0;
+
         Scanner in = new Scanner(System.in);
 
         boolean toQuit = false;
@@ -14,35 +14,43 @@ public class Echo {
             //polling for input
             msg = in.nextLine();
             msgs = msg.split(" ");
+            //TODO: msgs length when needed
+
             switch (msgs[0]) {//test if just a newline char
-                case "bye":
+                case "bye"-> {
                     A9527.byeUser();
                     toQuit = true;
-                    break;
-                case "list":
-                    System.out.println(A9527.LINE);
-                    Task.printTasks();
-                    System.out.println(A9527.LINE);
-                    break;
-                case "mark":
-                    taskIndex = Integer.parseInt(msgs[1]);
-                    System.out.println(A9527.LINE + "\tNice! I've marked this task as done:");
-                    Task.markTasks(taskIndex);
-                    Task.printTask(taskIndex);
-                    System.out.println(A9527.LINE);
-                    break;
-                case "unmark":
-                    taskIndex = Integer.parseInt(msgs[1]);
-                    System.out.println(A9527.LINE + "\tOK, I've marked this task as not done yet:");
-                    Task.unmarkTasks(taskIndex);
-                    Task.printTask(taskIndex);
-                    System.out.println(A9527.LINE);
-                    break;
-                default:
-                    System.out.println(A9527.LINE);
-                    System.out.println("\tadded: " + msg);
-                    Task.addTask(msg);
-                    System.out.println(A9527.LINE);
+                }
+
+                case "list" -> {
+                    A9527.printWithLines(Task::printTasks);
+                }
+
+                case "mark" -> {
+                    //TODO: Add error for invalid index
+                    int finalTaskIndex = Integer.parseInt(msgs[1]);
+                    A9527.printWithLines(() -> {
+                        Task.markTasksMsg();
+                        Task.markTasks(finalTaskIndex);
+                        Task.printTask(finalTaskIndex);
+                    });
+                }
+                case "unmark" -> {
+                    //TODO: Add error for invalid index
+                    int finalTaskIndex = Integer.parseInt(msgs[1]);
+                    A9527.printWithLines(() -> {
+                        Task.unmarkTasksMsg();
+                        Task.unmarkTasks(finalTaskIndex);
+                        Task.printTask(finalTaskIndex);
+                    });
+                }
+                default -> {
+                    String finalMsg = msg;
+                    A9527.printWithLines(() -> {
+                        System.out.println("\tadded: " + finalMsg);
+                        Task.addTask(finalMsg);
+                    });
+                }
             }
 
         }

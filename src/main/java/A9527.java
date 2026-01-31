@@ -1,8 +1,12 @@
 public class A9527 {
     public static final String LINE= "\t____________________________________________________________\n";
 
-//    private static int taskCount = 0;
-//    private static Task[] tasks = new Task[100];
+    public static void printWithLines(Runnable task) {
+        //TODO: exception
+        System.out.println(A9527.LINE);
+        task.run();
+        System.out.println(A9527.LINE);
+    }
 
 
     public static void greetUser() {
@@ -21,28 +25,5 @@ public class A9527 {
         System.out.println(LINE + "\tBye. Hope to see you again soon!\n" + LINE);
     }
 
-//    public static int getTaskCount() {
-//        return taskCount;
-//    }
 
-//    public static Task[] getTasks() {
-//        return tasks;
-//    }
-
-//    public static void addTask(String description) {
-//        tasks[taskCount] = new Task(description);
-//        taskCount ++;
-//    }
-
-//    public static void printTasks() {
-//        System.out.println(LINE);
-//        if(taskCount == 0) {
-//            System.out.println("\tNo task.");
-//        } else {
-//            for (int i = 0; i < taskCount ; i++) {
-//                System.out.println((i + 1) + "." + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-//            }
-//        }
-//        System.out.println(LINE);
-//    }
 }
