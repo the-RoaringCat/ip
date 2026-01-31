@@ -1,24 +1,24 @@
+import java.util.function.Consumer;
+
 public class A9527 {
     public static final String LINE= "\t____________________________________________________________\n";
 
-    public static void printWithLines(Runnable task) {
+    public static void printWithinLines(Runnable task) {
         //TODO: exception
         System.out.println(A9527.LINE);
         task.run();
         System.out.println(A9527.LINE);
     }
 
-    public static void printAddTask(Runnable task) {
-        printWithLines(()-> {
-            System.out.println("Got it. I've added this task:");
-            task.run();
-            System.out.println("\t" + Task.getTasks()[Task.getTaskCount() - 1].toString());
-            System.out.println("Now you have " + Task.getTaskCount() +
-                    (Task.getTaskCount() == 1 ? " task in the list." : " tasks in the list."));
+    public static void printAddTask(Task task) {
+        printWithinLines(()-> {
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println("\t" + task.toString());
+            System.out.println("\tNow you have " + TaskList.getTaskCount() +
+                    (TaskList.getTaskCount() == 1 ? " task in the list." : " tasks in the list."));
         });
 
     }
-
 
     public static void greetUser() {
         String logo = """

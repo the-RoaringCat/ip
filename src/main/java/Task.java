@@ -1,6 +1,5 @@
 public class Task {
-    protected static int taskCount = 0;
-    protected static Task[] tasks = new Task[100];
+
 
     protected String description;
     protected boolean isDone;
@@ -10,50 +9,15 @@ public class Task {
         this.isDone = false;
     }
 
-    public static int getTaskCount() {
-        return taskCount;
-    }
-    public static Task[] getTasks() {
-        return tasks;
-    }
-
-    public static void addTask(String description) {
-        tasks[taskCount] = new Task(description);
-        taskCount ++;
-    }
-
-    public static void printTasks() {
-        if(taskCount == 0) {
-            System.out.println("\tNo task.");
-            return;
-        }
-
-        for (int i = 0; i < taskCount ; i++) {
-            System.out.println("\t" + (i + 1) + "." + tasks[i].toString());
-        }
-    }
-
-    public static void printTask(int taskIndex) {
-        System.out.println("\t\t"+ tasks[taskIndex - 1].toString());
-    }
-
-    public static void unmarkTasksMsg() {
-        System.out.println("\tOK, I've marked this task as not done yet:");
-    }
-    public static void unmarkTasks(int taskIndex) {
-        tasks[taskIndex - 1].markNotDone();
-    }
-
-    public static void markTasksMsg() {
-        System.out.println("\tNice! I've marked this task as done:");
-    }
-    public static void markTasks(int taskIndex) {
-        tasks[taskIndex - 1].markDone();
+    public static String[] parseArgument(String args) {
+        String[] parsed = new String[1];
+        parsed[0] = args;
+        return parsed;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     public String getStatusIcon() {
@@ -70,5 +34,4 @@ public class Task {
     public void markNotDone() {
         this.isDone = false;
     }
-
 }

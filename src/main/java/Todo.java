@@ -9,9 +9,9 @@ public class Todo extends Task{
         return "[T]" + super.toString();
     }
 
-
-    public static void addTask(String description) {
-        tasks[taskCount] = new Todo(description);
-        taskCount ++;
+    public static String[] parseArgument(String args) {
+        String[] parsed = new String[1];
+        parsed[0] = args; //description
+        return parsed;
     }
 }

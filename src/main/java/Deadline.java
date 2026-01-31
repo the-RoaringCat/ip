@@ -19,8 +19,11 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    public static void addTask(String description, String by) {
-        tasks[taskCount] = new Deadline(description, by);
-        taskCount ++;
+    public static String[] parseArgument(String args) {
+        //TODO: deal with certain argument being missing
+        String[] parsed = new String[2];
+        parsed[0] = A9527.extractBefore(args, " /by ").trim(); //description
+        parsed[1] = A9527.extractAfter(args, " /by ").trim(); //by
+        return parsed;
     }
 }

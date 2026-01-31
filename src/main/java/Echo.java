@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Echo {
@@ -11,8 +10,9 @@ public class Echo {
 
         boolean toQuit = false;
 
+        //polling for input
         while(!toQuit) {
-            //polling for input
+            Task newTask = null;
             msg = in.nextLine();
             //TODO: what if multiple spaces btw certain words
             msgs = msg.split(" ");
@@ -24,62 +24,40 @@ public class Echo {
                     toQuit = true;
                 }
 
-                case "list" -> A9527.printWithLines(Task::printTasks);
+                case "list" -> A9527.printWithinLines(TaskList::printTaskList);
 
                 case "todo" -> {
-                    String finalDescription = String.join(" ", Arrays.copyOfRange(msgs, 1, msgs.length));
-                    A9527.printAddTask(() -> {
-                        Todo.addTask(finalDescription);
-                    });
+                    String[] todoAttribute = Todo.parseArgument(A9527.extractAfter(msg, "todo "));
+                    //Todo todo = new Todo(todoAttribute[0]);
+                    newTask = new Todo(todoAttribute[0]);
                 }
 
                 case "deadline" -> {
-                    //TODO: deal with /by being missing
-                    String[] parts = msg.split(" /by ", 2);
-                    String finalDescription = parts[0].replaceFirst("^deadline ", "").trim();
-                    String finalBy = parts[1].trim();
-                    A9527.printAddTask(() -> {
-                        Deadline.addTask(finalDescription, finalBy);
-                    });
+                    String[] deadlineAttribute = Deadline.parseArgument(A9527.extractAfter(msg, "deadline "));
+                    newTask = new Deadline(deadlineAttribute[0], deadlineAttribute[1]);
                 }
 
                 case "event" -> {
-                    String args = msg.replaceFirst("^event ", "").trim();
-                    String finalDescription = A9527.extractBefore(args, " /from ").trim();
-                    String finalStart = A9527.extractBetween(args, " /from ", " /to ").trim();
-                    String finalEnd = A9527.extractAfter(args, " /to ").trim();
-                    A9527.printAddTask(() -> {
-                        Event.addTask(finalDescription, finalStart, finalEnd);
-                    });
+                    String[] eventAttribute = Event.parseArgument(A9527.extractAfter(msg, "event "));
+                    newTask = new Event(eventAttribute[0], eventAttribute[1], eventAttribute[2]);
                 }
                 case "mark" -> {
                     //TODO: Add error for invalid index
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
-                    A9527.printWithLines(() -> {
-                        Task.markTasksMsg();
-                        Task.markTasks(finalTaskIndex);
-                        Task.printTask(finalTaskIndex);
-                    });
+                    A9527.printWithinLines(() -> TaskList.printAndMark(finalTaskIndex));
                 }
                 case "unmark" -> {
                     //TODO: Add error for invalid index
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
-                    A9527.printWithLines(() -> {
-                        Task.unmarkTasksMsg();
-                        Task.unmarkTasks(finalTaskIndex);
-                        Task.printTask(finalTaskIndex);
-                    });
+                    A9527.printWithinLines(() -> TaskList.printAddUnmark(finalTaskIndex));
                 }
-                default -> {
-                    String finalMsg = msg;
-                    A9527.printWithLines(() -> {
-                        System.out.println("\tadded: " + finalMsg);
-                        Task.addTask(finalMsg);
-                    });
-                }
+                default -> newTask = new Task(msg);
             }
 
+            if(newTask != null) {
+                TaskList.addToTaskList(newTask);
+                A9527.printAddTask(newTask);
+            }
         }
     }
-
 }
