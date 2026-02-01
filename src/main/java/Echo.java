@@ -14,7 +14,7 @@ public class Echo {
         while(!toQuit) {
             Task newTask = null;
             msg = in.nextLine();
-            //TODO: what if multiple spaces btw certain words
+            //TODO: what if multiple spaces btw certain words；Update: I guess I can ignore this if I still use extract method from A9527
             msgs = msg.split(" ");
             //TODO: msgs length when needed
 
@@ -28,7 +28,6 @@ public class Echo {
 
                 case "todo" -> {
                     String[] todoAttribute = Todo.parseArgument(A9527.extractAfter(msg, "todo "));
-                    //Todo todo = new Todo(todoAttribute[0]);
                     newTask = new Todo(todoAttribute[0]);
                 }
 
