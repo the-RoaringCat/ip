@@ -17,6 +17,7 @@ public class Echo {
             //TODO: what if multiple spaces btw certain words；Update: I guess I can ignore this if I still use extract method from A9527
             msgs = msg.split(" ");
             //TODO: msgs length when needed
+            //TODO: deal with the case there are unexpected input after single word command
 
             switch (msgs[0]) {//test if just a newline char
                 case "bye"-> {
@@ -50,6 +51,8 @@ public class Echo {
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
                     A9527.printWithinLines(() -> TaskList.printAddUnmark(finalTaskIndex));
                 }
+
+                case "congrat" -> A9527.printWithinLines(() -> System.out.println("\tCongratulate for being congratulated by limbei"));
                 default -> newTask = new Task(msg);
             }
 

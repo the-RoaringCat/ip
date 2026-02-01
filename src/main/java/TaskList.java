@@ -29,7 +29,12 @@ public class TaskList {
 
 
     public static void printAddUnmark(int taskIndex) {
-        System.out.println("\tOK, I've marked this task as not done yet:");
+        if(tasks[taskIndex - 1].isDone()) {
+            System.out.println("\tHaiyah, so you didn't do?");
+        } else {
+            System.out.println("\tI know you didn't finish");
+        }
+
         tasks[taskIndex - 1].markNotDone();
         System.out.println("\t\t"+ tasks[taskIndex - 1].toString());
     }
@@ -38,7 +43,12 @@ public class TaskList {
     }
 
     public static void printAndMark(int taskIndex) {
-        System.out.println("\tNice! I've marked this task as done:");
+        if(tasks[taskIndex - 1].isDone()) {
+            System.out.println("\tDone already, you just redo ah?");
+        } else {
+            System.out.println("\tGood good, finally done! Need wait so long :)");
+        }
+
         tasks[taskIndex - 1].markDone();
         System.out.println("\t\t"+ tasks[taskIndex - 1].toString());
     }

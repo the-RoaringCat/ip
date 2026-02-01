@@ -27,6 +27,9 @@ public class Task {
         return this.description;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
 
     public void markDone() {
         this.isDone = true;
