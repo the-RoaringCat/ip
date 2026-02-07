@@ -19,32 +19,10 @@ public class A9527 {
         });
     }
 
-    public static void bootNoise() {
-        //this is from GPT, just for fun.
-        Random r = new Random();
+    
 
-        for (int i = 0; i < 20; i++) {
-            int len = 30 + r.nextInt(40); // line length
-            StringBuilder sb = new StringBuilder();
+    public static void greetUser() {
 
-            for (int j = 0; j < len; j++) {
-                char c = (char) (33 + r.nextInt(94)); // printable ASCII
-                sb.append(c);
-            }
-
-            System.out.println(sb);
-            long end = System.currentTimeMillis() + 35;
-            while(System.currentTimeMillis() < end) {
-            }
-        }
-    }
-
-
-
-
-
-    public static void greetUser(boolean isBootNoise) {
-        if(isBootNoise) bootNoise();
         String logo = """
                 \t  ___  ____  ____  _____
                 \t / _ \\| ___||___ \\|___  |
