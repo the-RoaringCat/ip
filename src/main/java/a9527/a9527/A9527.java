@@ -1,16 +1,11 @@
-
+package a9527.a9527;
+import a9527.ui.Ui;
 
 public class A9527 {
     public static final String LINE= "\t____________________________________________________________\n";
 
 
-
-
-
-    
-
     public static void greetUser() {
-
         String logo = """
                 \t  ___  ____  ____  _____
                 \t / _ \\| ___||___ \\|___  |
@@ -18,11 +13,12 @@ public class A9527 {
                 \t \\__/ |___) )/ __/_ / /
                 \t   /_/|____/|_____//_/
                 """;
-        System.out.println(LINE + "\tHello I'm\n" + logo + "\tWhat you want me to do now?\n" +LINE);
+        Ui.print("Hello I'm\n" + logo + "\tWhat you want me to do now?");
     }
 
     public static void byeUser() {
-        System.out.println(LINE + "\tTask list deleted :(\n" + "\t(^&#$^()@&)*#\n" + LINE);
+        String[] strings = {"Task list deleted :(", "(^&#$^()@&)*#(*^&(^*"};
+        Ui.print(strings);
     }
 
 

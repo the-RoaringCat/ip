@@ -1,3 +1,5 @@
+package a9527.task;
+import a9527.a9527.A9527;
 public class Deadline extends Task{
     protected String by;
 
