@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import a9527.task.*;
+import a9527.a9527.A9527;
+import a9527.ui.Ui;
+
 public class Echo {
 
     public static void echoUser() {
@@ -25,7 +29,7 @@ public class Echo {
                     toQuit = true;
                 }
 
-                case "list" -> UI.printWithinLines(TaskList::printTaskList);
+                case "list" -> TaskList.printTaskList();
 
                 case "todo" -> {
                     String[] todoAttribute = Todo.parseArgument(A9527.extractAfter(msg, "todo "));
@@ -44,21 +48,21 @@ public class Echo {
                 case "mark" -> {
                     //TODO: Add error for invalid index
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
-                    UI.printWithinLines(() -> TaskList.printAndMark(finalTaskIndex));
+                    TaskList.printAndMark(finalTaskIndex);
                 }
                 case "unmark" -> {
                     //TODO: Add error for invalid index
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
-                    UI.printWithinLines(() -> TaskList.printAddUnmark(finalTaskIndex));
+                    TaskList.printAddUnmark(finalTaskIndex);
                 }
 
-                case "congrat" -> UI.printWithinLines(() -> System.out.println("\tCongratulate for being congratulated by limbei"));
+                case "congrat" -> Ui.printWithinLines(() -> System.out.println("\tCongratulate for being congratulated by limbei"));
                 default -> newTask = new Task(msg);
             }
 
             if(newTask != null) {
                 TaskList.addToTaskList(newTask);
-                UI.printAddTask(newTask);
+                //UI.printAddTask(newTask);
             }
         }
     }
