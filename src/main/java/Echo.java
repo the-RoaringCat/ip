@@ -25,7 +25,7 @@ public class Echo {
                     toQuit = true;
                 }
 
-                case "list" -> A9527.printWithinLines(TaskList::printTaskList);
+                case "list" -> UI.printWithinLines(TaskList::printTaskList);
 
                 case "todo" -> {
                     String[] todoAttribute = Todo.parseArgument(A9527.extractAfter(msg, "todo "));
@@ -44,21 +44,21 @@ public class Echo {
                 case "mark" -> {
                     //TODO: Add error for invalid index
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
-                    A9527.printWithinLines(() -> TaskList.printAndMark(finalTaskIndex));
+                    UI.printWithinLines(() -> TaskList.printAndMark(finalTaskIndex));
                 }
                 case "unmark" -> {
                     //TODO: Add error for invalid index
                     int finalTaskIndex = Integer.parseInt(msgs[1]);
-                    A9527.printWithinLines(() -> TaskList.printAddUnmark(finalTaskIndex));
+                    UI.printWithinLines(() -> TaskList.printAddUnmark(finalTaskIndex));
                 }
 
-                case "congrat" -> A9527.printWithinLines(() -> System.out.println("\tCongratulate for being congratulated by limbei"));
+                case "congrat" -> UI.printWithinLines(() -> System.out.println("\tCongratulate for being congratulated by limbei"));
                 default -> newTask = new Task(msg);
             }
 
             if(newTask != null) {
                 TaskList.addToTaskList(newTask);
-                A9527.printAddTask(newTask);
+                UI.printAddTask(newTask);
             }
         }
     }
