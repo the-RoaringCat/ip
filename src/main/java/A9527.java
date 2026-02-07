@@ -19,7 +19,7 @@ public class A9527 {
         });
     }
 
-    
+
 
     public static void greetUser() {
 
