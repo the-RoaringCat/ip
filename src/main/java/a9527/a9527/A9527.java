@@ -20,24 +20,4 @@ public class A9527 {
         String[] strings = {"Task list deleted :(", "(^&#$^()@&)*#(*^&(^*"};
         Ui.print(strings);
     }
-
-
-    //TODO: extract method need deal with missing delimiter
-    public static String extractBefore(String string, String delimiter) {
-        int indexOfDelimiter = string.indexOf(delimiter);
-        return string.substring(0, indexOfDelimiter);
-    }
-
-    public static String extractBetween(String string, String startDelimiter, String endDelimiter) {
-        int indexOfStartDelimiter = string.indexOf(startDelimiter);
-        int indexOfEndDelimiter = string.indexOf(endDelimiter);
-
-        return string.substring(indexOfStartDelimiter + startDelimiter.length(), indexOfEndDelimiter);
-    }
-
-    public static String extractAfter(String string, String delimiter) {
-        int indexOfDelimiter = string.indexOf(delimiter);
-        return string.substring(indexOfDelimiter + delimiter.length());
-    }
-
 }

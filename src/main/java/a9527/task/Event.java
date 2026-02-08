@@ -31,12 +31,4 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
-    public static String [] parseArgument(String args) {
-        //TODO: deal with certain argument being missing
-        String[] parsed = new String[3];
-        parsed[0] = A9527.extractBefore(args, " /from ").trim(); //description
-        parsed[1] = A9527.extractBetween(args, " /from ", " /to ").trim(); //start
-        parsed[2] = A9527.extractAfter(args, " /to ").trim(); //end
-        return parsed;
-    }
 }

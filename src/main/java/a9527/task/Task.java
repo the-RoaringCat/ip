@@ -11,20 +11,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public static String[] parseArgument(String args) {
-        String[] parsed = new String[1];
-        parsed[0] = args;
-        return parsed;
-    }
-
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + (isDone? "X" : " ") + "] " + description;
     }
 
-    public String getStatusIcon() {
-        return (isDone? "X" : " ");
-    }
     public String getDescription() {
         return this.description;
     }

@@ -14,9 +14,16 @@ public class TaskList {
         return tasks;
     }
 
-    public static void addToTaskList(Task task) {
+    public static void printAndAddToTaskList(Task task) {
         tasks[taskCount] = task;
         taskCount ++;
+        String[] strings = {
+                "Got it. I've added this task:",
+                task.toString(),
+                ("Now you have " + TaskList.getTaskCount() +
+                        (TaskList.getTaskCount() == 1 ? " task in the list." : " tasks in the list."))
+        };
+        Ui.print(strings);
     }
 
     public static String[] toStrings() {
@@ -30,13 +37,12 @@ public class TaskList {
         }
         return strings;
     }
-
     public static void printTaskList() {
         Ui.print(TaskList.toStrings());
     }
 
 
-
+    //TODO: for mark and unmark, deal with taskIndex out of bound
     public static void printAddUnmark(int taskIndex) {
         String[] strings = new String[2];
 
@@ -45,9 +51,6 @@ public class TaskList {
         strings[1] = ("\t"+ tasks[taskIndex - 1].toString());
 
         Ui.print(strings);
-    }
-    public static void unmark(int taskIndex) {
-        tasks[taskIndex - 1].markNotDone();
     }
 
     public static void printAndMark(int taskIndex) {
@@ -58,8 +61,5 @@ public class TaskList {
         strings[1] = ("\t"+ tasks[taskIndex - 1].toString());
 
         Ui.print(strings);
-    }
-    public static void mark(int taskIndex) {
-        tasks[taskIndex - 1].markDone();
     }
 }
