@@ -6,13 +6,9 @@ import java.util.Arrays;
 public class Parser {
 
     public static Command parse(String input) throws A9527Exception {
-        String[] words = input.trim().split(" "); //separate into an array of words
-        for (int i = 0; i < words.length; i++) {
-            words[i] = words[i].trim(); //each word is trimmed
-        }
+        String[] words = input.trim().split("\\s+"); //separate into an array of words from any whitespace sequence
         String commandWord = words[0];
-        String[] arguments = Arrays.copyOfRange(words, 1, words.length);
-        String argument = String.join(" ", arguments);
+        String argument = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
 
         switch(commandWord) {
             case "bye" -> {
@@ -36,16 +32,11 @@ public class Parser {
             case "unmark" -> {
                 return parseUnmark(argument);
             }
-            case "" -> {
-                throw new A9527Exception("haiyah, tell me do something");
-            }
-            default -> {
-                throw new A9527Exception("haiyah, I don't understand");
-            }
+            case "" -> throw new A9527Exception("haiyah, tell me do something");
+
+            default -> throw new A9527Exception("haiyah, I don't understand");
         }
     }
-
-
 
     private static ByeCommand parseBye(String string) throws A9527Exception {
         if(!string.isBlank()) {
@@ -69,7 +60,7 @@ public class Parser {
     }
 
     private static DeadlineCommand parseDeadline(String string) throws A9527Exception{
-        if(string.indexOf("/by") < 0) {
+        if(!string.contains("/by")) {
             throw new A9527Exception("haiyah, deadline expects /by to indicate deadline");
         }
         String description = extractBefore(string, "/by");
@@ -79,7 +70,7 @@ public class Parser {
     }
 
     private static EventCommand parseEvent(String string) throws A9527Exception {
-        if(string.indexOf("/from") < 0 || string.indexOf("/to") < 0) {
+        if(!string.contains("/from") || !string.contains("/to")) {
             throw new A9527Exception("haiyah, event expects /from to indicate start time and /to to indicate end time");
         }
         String description = extractBefore(string, "/from");
