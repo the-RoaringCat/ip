@@ -96,18 +96,18 @@ public class Parser {
 
     private static String extractBefore(String string, String delimiter){
         int indexOfDelimiter = string.indexOf(delimiter);
-        return string.substring(0, indexOfDelimiter);
+        return string.substring(0, indexOfDelimiter).trim();
     }
 
     private static String extractBetween(String string, String startDelimiter, String endDelimiter) {
         int indexOfStartDelimiter = string.indexOf(startDelimiter);
         int indexOfEndDelimiter = string.indexOf(endDelimiter);
 
-        return string.substring(indexOfStartDelimiter + startDelimiter.length(), indexOfEndDelimiter);
+        return string.substring(indexOfStartDelimiter + startDelimiter.length(), indexOfEndDelimiter).trim();
     }
 
     private static String extractAfter(String string, String delimiter) {
         int indexOfDelimiter = string.indexOf(delimiter);
-        return string.substring(indexOfDelimiter + delimiter.length());
+        return string.substring(indexOfDelimiter + delimiter.length()).trim();
     }
 }
