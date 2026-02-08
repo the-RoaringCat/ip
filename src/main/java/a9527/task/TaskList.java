@@ -1,5 +1,7 @@
 package a9527.task;
 import a9527.ui.Ui;
+import a9527.exception.A9527Exception;
+
 
 
 public class TaskList {
@@ -43,7 +45,10 @@ public class TaskList {
 
 
     //TODO: for mark and unmark, deal with taskIndex out of bound
-    public static void printAddUnmark(int taskIndex) {
+    public static void printAddUnmark(int taskIndex) throws A9527Exception{
+        if(taskIndex > taskCount || taskIndex < 1) {
+            throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
+        }
         String[] strings = new String[2];
 
         strings[0] = (tasks[taskIndex - 1].isDone()) ? "\tHaiyah, so you didn't do?" : "\tI know you didn't finish";
@@ -53,7 +58,10 @@ public class TaskList {
         Ui.print(strings);
     }
 
-    public static void printAndMark(int taskIndex) {
+    public static void printAndMark(int taskIndex) throws A9527Exception{
+        if(taskIndex > taskCount || taskIndex < 1) {
+            throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
+        }
         String[] strings = new String[2];
 
         strings[0] = (tasks[taskIndex - 1].isDone()) ? "\tDone already, you just redo ah?" : "\tGood good, finally done! Need wait so long :)";
