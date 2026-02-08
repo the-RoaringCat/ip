@@ -29,10 +29,11 @@
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
  */
-
+import a9527.a9527.A9527;
 public class Main {
     public static void main(String[] args) {
         A9527.greetUser();
-        Echo.echoUser();
+        //Echo.echoUser();
+        Echo.test();
     }
 }
