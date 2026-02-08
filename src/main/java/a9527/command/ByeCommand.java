@@ -4,6 +4,6 @@ public class ByeCommand extends Command{
     @Override
     public void execute() {
         A9527.byeUser();
-        System.exit(0);
+        A9527.assertShouldExit();
     }
 }

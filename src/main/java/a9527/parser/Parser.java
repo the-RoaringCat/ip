@@ -1,11 +1,11 @@
 package a9527.parser;
 import a9527.command.*;
-
+import a9527.exception.A9527Exception;
 import java.util.Arrays;
 
 public class Parser {
 
-    public static Command parse(String input) {
+    public static Command parse(String input) throws A9527Exception {
         String[] words = input.trim().split(" "); //separate into an array of words
         for (int i = 0; i < words.length; i++) {
             words[i] = words[i].trim(); //each word is trimmed
@@ -36,52 +36,74 @@ public class Parser {
             case "unmark" -> {
                 return parseUnmark(argument);
             }
-            //TODO:
-            case "" -> {}
-            default -> {}
+            case "" -> {
+                throw new A9527Exception("haiyah, tell me do something");
+            }
+            default -> {
+                throw new A9527Exception("haiyah, I don't understand");
+            }
         }
-        return null; //TODO：
     }
 
 
 
-    private static ByeCommand parseBye(String string) {
+    private static ByeCommand parseBye(String string) throws A9527Exception {
+        if(!string.isBlank()) {
+            throw new A9527Exception("haiyah, bye expects no param");
+        }
         return new ByeCommand();
     }
 
-    private static ListCommand parseList(String  string) {
+    private static ListCommand parseList(String  string) throws A9527Exception {
+        if(!string.isBlank()) {
+            throw new A9527Exception("haiyah, list expects no param");
+        }
         return new ListCommand();
     }
 
-    private static TodoCommand parseTodo(String string) {
+    private static TodoCommand parseTodo(String string) throws A9527Exception {
+        if(string.isBlank()) {
+            throw new A9527Exception("haiyah, todo expects one task description");
+        }
         return new TodoCommand(string);
     }
 
-    private static DeadlineCommand parseDeadline(String string) {
-        //TODO: try catch here
-        String description = extractBefore(string, " /by ");
-        String deadline = extractAfter(string, " /by ");
+    private static DeadlineCommand parseDeadline(String string) throws A9527Exception{
+        if(string.indexOf("/by") < 0) {
+            throw new A9527Exception("haiyah, deadline expects /by to indicate deadline");
+        }
+        String description = extractBefore(string, "/by");
+        String deadline = extractAfter(string, "/by");
 
         return new DeadlineCommand(description, deadline);
     }
 
-    private static EventCommand parseEvent(String string) {
-        String description = extractBefore(string, " /from ");
-        String from = extractBetween(string, " /from ", " /to ");
-        String to = extractAfter(string, " /to ");
+    private static EventCommand parseEvent(String string) throws A9527Exception {
+        if(string.indexOf("/from") < 0 || string.indexOf("/to") < 0) {
+            throw new A9527Exception("haiyah, event expects /from to indicate start time and /to to indicate end time");
+        }
+        String description = extractBefore(string, "/from");
+        String from = extractBetween(string, "/from", "/to");
+        String to = extractAfter(string, "/to");
 
         return new EventCommand(description, from, to);
     }
 
-    private static MarkCommand parseMark(String string) {
+    private static MarkCommand parseMark(String string) throws A9527Exception {
+        if(string.isBlank()) {
+            throw new A9527Exception("haiyah, mark expects one task index");
+        }
         return new MarkCommand(string);
     }
 
-    private static UnmarkCommand parseUnmark(String string) {
+    private static UnmarkCommand parseUnmark(String string) throws A9527Exception {
+        if(string.isBlank()) {
+            throw new A9527Exception("haiyah, unmark expects one task index");
+        }
         return new UnmarkCommand(string);
     }
 
-    private static String extractBefore(String string, String delimiter) {
+    private static String extractBefore(String string, String delimiter){
         int indexOfDelimiter = string.indexOf(delimiter);
         return string.substring(0, indexOfDelimiter);
     }

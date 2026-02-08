@@ -2,8 +2,14 @@ package a9527.a9527;
 import a9527.ui.Ui;
 
 public class A9527 {
-    public static final String LINE= "\t____________________________________________________________\n";
+    private static boolean shouldExit = false;
 
+    public static boolean shouldExit() {
+        return shouldExit;
+    }
+    public static void assertShouldExit() {
+        shouldExit = true;
+    }
 
     public static void greetUser() {
         String logo = """

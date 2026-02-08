@@ -1,5 +1,6 @@
 package a9527.command;
 
+import a9527.exception.A9527Exception;
 import a9527.task.*;
 
 public class TodoCommand extends Command{
@@ -11,7 +12,8 @@ public class TodoCommand extends Command{
     }
 
     @Override
-    public void execute(){
+    public void execute() {
+
         TaskList.printAndAddToTaskList(new Todo(description));
     }
 }
