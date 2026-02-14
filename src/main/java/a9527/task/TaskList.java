@@ -43,6 +43,12 @@ public class TaskList {
         Ui.print(messages);
     }
 
+    public static void AddToTaskList(Task task) {
+        tasks[taskCount] = task;
+        taskCount ++;
+    }
+
+
     public static String[] toStrings() {
         String[] strings = {"\tNo task"};
         if(!tasks.isEmpty()) {
