@@ -18,6 +18,6 @@ public class EventCommand extends Command{
         if(description.isBlank() || from.isBlank() || to.isBlank()) {
             throw new A9527Exception("haiyah, event expects non empty param(s)");
         }
-        TaskList.printAndAddToTaskList(new Event(description, from, to));
+        TaskList.printAndAdd(new Event(description, from, to));
     }
 }

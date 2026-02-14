@@ -16,6 +16,6 @@ public class DeadlineCommand extends Command{
         if(description.isBlank() || deadline.isBlank()) {
             throw new A9527Exception("haiyah, deadline expects non empty param(s)");
         }
-        TaskList.printAndAddToTaskList(new Deadline(description, deadline));
+        TaskList.printAndAdd(new Deadline(description, deadline));
     }
 }

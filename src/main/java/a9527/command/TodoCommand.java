@@ -14,6 +14,6 @@ public class TodoCommand extends Command{
     @Override
     public void execute() {
 
-        TaskList.printAndAddToTaskList(new Todo(description));
+        TaskList.printAndAdd(new Todo(description));
     }
 }
