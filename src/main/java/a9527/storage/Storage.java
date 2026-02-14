@@ -8,16 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static File tasksFile;
-
-    public static File getFile() {
-        return tasksFile;
-    }
-
-    public static void createFileObject() {
-        //TODO: exception for not exist
-        tasksFile = new File("data/tasks.txt");
-    }
 
     public static void clearFile(String path) {
         try {

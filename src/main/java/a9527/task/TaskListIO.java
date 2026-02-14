@@ -94,7 +94,6 @@ public class TaskListIO {
     }
 
     public static void loadTasksFromFile(String path) throws FileNotFoundException, A9527Exception {
-        //TODO: make "|" illegal character for user input; it is used in file formatting
         //format: taskType | isDone | description | additional 1 | additional 2
         ArrayList<String> texts = Storage.readFromFile(path);
 
@@ -107,11 +106,8 @@ public class TaskListIO {
 
     public static void storeTasksToFile(String path) throws IOException {
         Storage.clearFile(path);
-        Task[] tasks = TaskList.getTasks();
+        ArrayList<Task> tasks= TaskList.getTasks();
         for(Task task : tasks) {
-            if(task == null) {
-                break;
-            }
             Storage.appendToFile(path, task.toStorageFormat(), true);
         }
     }

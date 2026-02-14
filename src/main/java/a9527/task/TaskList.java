@@ -3,13 +3,18 @@ import a9527.ui.Ui;
 import a9527.exception.A9527Exception;
 import java.util.ArrayList;
 
-//TODO: can I extract out common exception case like task with index not exsist
 public class TaskList {
     protected static ArrayList<Task> tasks= new ArrayList<>();
 
 
     public static ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    private static void checkTaskIndexBound(int taskIndex) throws A9527Exception {
+        if(taskIndex > tasks.size() || taskIndex < 1) {
+            throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
+        }
     }
 
     public static Task getTaskOfIndex(int index) {
@@ -29,9 +34,7 @@ public class TaskList {
     }
 
     public static void printAndDelete(int taskIndex) throws A9527Exception{
-        if(taskIndex > tasks.size() || taskIndex < 1) {
-            throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
-        }
+        checkTaskIndexBound(taskIndex);
         Task deletedTask = getTaskOfIndex(taskIndex - 1);
         tasks.remove(taskIndex - 1);
         String[] messages = {
@@ -44,8 +47,7 @@ public class TaskList {
     }
 
     public static void AddToTaskList(Task task) {
-        tasks[taskCount] = task;
-        taskCount ++;
+        tasks.add(task);
     }
 
 
@@ -67,11 +69,8 @@ public class TaskList {
         Ui.print(TaskList.toStrings());
     }
 
-
     public static void printAddUnmark(int taskIndex) throws A9527Exception{
-        if(taskIndex > tasks.size() || taskIndex < 1) {
-            throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
-        }
+        checkTaskIndexBound(taskIndex);
         String[] strings = new String[2];
 
         strings[0] = (getTaskOfIndex(taskIndex - 1).isDone()) ? "\tHaiyah, so you didn't do?" : "\tI know you didn't finish";
@@ -82,9 +81,7 @@ public class TaskList {
     }
 
     public static void printAndMark(int taskIndex) throws A9527Exception{
-        if(taskIndex > tasks.size() || taskIndex < 1) {
-            throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
-        }
+        checkTaskIndexBound(taskIndex);
         String[] strings = new String[2];
 
         strings[0] = (getTaskOfIndex(taskIndex - 1).isDone()) ? "\tDone already, you just redo ah?" : "\tGood good, finally done! Need wait so long :)";

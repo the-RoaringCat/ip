@@ -6,6 +6,9 @@ import java.util.Arrays;
 public class Parser {
 
     public static Command parse(String input) throws A9527Exception {
+        if(input.contains("|")) {
+            throw new A9527Exception("haiyah, | is illegal character");
+        }
         String[] words = input.trim().split("\\s+"); //separate into an array of words from any whitespace sequence
         String commandWord = words[0];
         String argument = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
