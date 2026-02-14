@@ -9,6 +9,12 @@ public class Event extends Task{
         this.end = end;
     }
 
+    public Event(String description, boolean isDone,  String start, String end) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
     public void setStart(String start) {
         this.start = start;
     }
@@ -30,4 +36,8 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
+    @Override
+    public String toStorageFormat() {
+        return "E | " + super.toStorageFormat() + " | " + start + " | " + end;
+    }
 }

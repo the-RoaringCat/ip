@@ -30,9 +30,26 @@
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 import a9527.a9527.A9527;
+import a9527.task.TaskList;
+import a9527.task.TaskListIO;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         A9527.greetUser();
+
+        try{
+            TaskListIO.loadTasksFromFile("data/tasks.txt");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         Echo.test();
+        try{
+            TaskListIO.storeTasksToFile("data/tasks.txt");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
