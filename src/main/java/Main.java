@@ -31,6 +31,8 @@
  */
 import a9527.a9527.A9527;
 import a9527.task.TaskListIO;
+import a9527.ui.Ui;
+
 import java.io.IOException;
 
 public class Main {
@@ -40,13 +42,13 @@ public class Main {
         try{
             TaskListIO.loadTasksFromFile("data/tasks.txt");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Ui.print(e.getMessage());
         }
         Echo.test();
         try{
             TaskListIO.storeTasksToFile("data/tasks.txt");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Ui.print(e.getMessage());
         }
     }
 }
