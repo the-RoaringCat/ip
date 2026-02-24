@@ -38,10 +38,20 @@ public class Parser {
             case "delete" -> {
                 return parseDelete(argument);
             }
+            case "find" -> {
+                return parseFind(argument);
+            }
             case "" -> throw new A9527Exception("haiyah, tell me do something");
 
             default -> throw new A9527Exception("haiyah, I don't understand");
         }
+    }
+
+    private static FindCommand parseFind(String string) throws A9527Exception {
+        if(string.isBlank()) {
+            throw new A9527Exception("haiyah, delete expects one task index");
+        }
+        return new FindCommand(string);
     }
 
     private static DeleteCommand parseDelete(String string) throws A9527Exception {

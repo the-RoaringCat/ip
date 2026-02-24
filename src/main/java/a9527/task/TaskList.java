@@ -11,6 +11,21 @@ public class TaskList {
         return tasks;
     }
 
+    public static ArrayList<Task> findTasks(String description) {
+        ArrayList<Task> neededTasks = new ArrayList<>();
+        for(Task task : tasks) {
+            if(task.isContain(description)) {
+                neededTasks.add(task);
+            }
+        }
+        return neededTasks;
+    }
+
+    public static void findTasksAndPrint(String description) {
+        printTaskList(findTasks(description));
+    }
+
+
     private static void checkTaskIndexBound(int taskIndex) throws A9527Exception {
         if(taskIndex > tasks.size() || taskIndex < 1) {
             throw new A9527Exception("haiyah, task with index " + taskIndex + " does not exist");
@@ -68,6 +83,20 @@ public class TaskList {
     public static void printTaskList() {
         Ui.print(TaskList.toStrings());
     }
+
+    public static void printTaskList(ArrayList<Task> tasklist) {
+        ArrayList<String> strings = new ArrayList<>();
+        if(tasklist.isEmpty()) {
+            strings.add("No such task is found");
+        } else {
+            strings.add("I found these:");
+            for (Task task : tasklist) {
+                strings.add(task.toString());
+            }
+        }
+        Ui.print(strings);
+    }
+
 
     public static void printAddUnmark(int taskIndex) throws A9527Exception{
         checkTaskIndexBound(taskIndex);

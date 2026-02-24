@@ -1,4 +1,7 @@
 package a9527.ui;
+
+import java.util.ArrayList;
+
 public class Ui {
     public static final String LINE= "\t____________________________________________________________________________";
 
@@ -17,6 +20,13 @@ public class Ui {
         });
     }
 
+    public static void print(ArrayList<String> strings) {
+        printWithinLines(() -> {
+            for(String string : strings) {
+                System.out.println("\t" + string);
+            }
+        });
+    }
     public static void print(String string) {
         printWithinLines(() -> System.out.println("\t" + string));
     }

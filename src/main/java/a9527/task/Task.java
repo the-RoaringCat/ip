@@ -29,6 +29,11 @@ public class Task {
         return this.description;
     }
 
+    public boolean isContain(String description) {
+        return this.description.contains(description);
+    }
+
+
     public boolean isDone() {
         return isDone;
     }
