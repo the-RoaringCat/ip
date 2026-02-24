@@ -96,25 +96,27 @@ public class TaskListIO {
     public static void loadTasksFromFile(String path) throws FileNotFoundException, A9527Exception {
         //format: taskType | isDone | description | additional 1 | additional 2
         ArrayList<String> texts = Storage.readFromFile(path);
-        ArrayList<String> errorMessages = new ArrayList<>();
-        int i = 1;
+        StringBuilder errorMessage = new StringBuilder(path + " is corrupted :(");
+
+        int line = 1;
+        boolean isCorrupted = false;
         for(String text : texts) {
             try{
                 checkTaskDataIntegrity(text);
                 Task newTask = formatDataToTask(text);
                 TaskList.AddToTaskList(newTask);
             } catch (Exception e) {
-                errorMessages.add("Line " + i + ": " + e.getMessage());
+                isCorrupted = true;
+                errorMessage.append(System.lineSeparator())
+                                .append("Line ")
+                                .append(line)
+                                .append(": ")
+                                .append(e.getMessage());
             }
-            i++;
+            line++;
         }
-        if(!errorMessages.isEmpty()) {
-            StringBuilder error = new StringBuilder();
-            error.append(path).append(" is corrupted :(");
-            for(String errorMessage : errorMessages) {
-                error.append(System.lineSeparator()).append("\t").append(errorMessage);
-            }
-            throw new A9527Exception(error.toString());
+        if(isCorrupted) {
+            throw new A9527Exception(errorMessage.toString());
         }
     }
 

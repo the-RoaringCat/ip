@@ -7,7 +7,7 @@ public class Parser {
 
     public static Command parse(String input) throws A9527Exception {
         if(input.contains("|")) {
-            throw new A9527Exception("haiyah, | and / are illegal characters");
+            throw new A9527Exception("haiyah, | is illegal character");
         }
         String[] words = input.trim().split("\\s+"); //separate into an array of words from any whitespace sequence
         String commandWord = words[0];
@@ -69,7 +69,7 @@ public class Parser {
 
     private static TodoCommand parseTodo(String string) throws A9527Exception {
         final String[] FLAGS = {"/name"};
-        checkFlags(string, FLAGS, "todo");
+        checkContainFlags(string, FLAGS, "todo");
 
         String description = extractFlagParam(string, "/name");
         return new TodoCommand(description);
@@ -77,7 +77,7 @@ public class Parser {
 
     private static DeadlineCommand parseDeadline(String string) throws A9527Exception{
         final String[] FLAGS = {"/by", "/name"};
-        checkFlags(string, FLAGS, "deadline");
+        checkContainFlags(string, FLAGS, "deadline");
 
         String description = extractFlagParam(string, "/name");
         String deadline = extractFlagParam(string, "/by");
@@ -87,7 +87,7 @@ public class Parser {
 
     private static EventCommand parseEvent(String string) throws A9527Exception {
         final String[] FLAGS = {"/from", "/to", "/name"};
-        checkFlags(string, FLAGS, "event");
+        checkContainFlags(string, FLAGS, "event");
 
         String description = extractFlagParam(string, "/name");
         String from = extractFlagParam(string, "/from");
@@ -107,7 +107,7 @@ public class Parser {
     }
 
     //======helper=======
-    private static void checkFlags(String string, String[] flags, String commandName) throws A9527Exception {
+    private static void checkContainFlags(String string, String[] flags, String commandName) throws A9527Exception {
         StringBuilder errorMessage = new StringBuilder();
         for(String flag : flags) {
             if(!string.contains(flag)) {
@@ -143,24 +143,24 @@ public class Parser {
                 return (argument.replaceFirst(flag, "").trim()); //extract the param of the flag
             }
         }
-
         return "";
     }
 
-    private static String extractBefore(String string, String delimiter){
-        int indexOfDelimiter = string.indexOf(delimiter);
-        return string.substring(0, indexOfDelimiter).trim();
-    }
-
-    private static String extractBetween(String string, String startDelimiter, String endDelimiter) {
-        int indexOfStartDelimiter = string.indexOf(startDelimiter);
-        int indexOfEndDelimiter = string.indexOf(endDelimiter);
-
-        return string.substring(indexOfStartDelimiter + startDelimiter.length(), indexOfEndDelimiter).trim();
-    }
-
-    private static String extractAfter(String string, String delimiter) {
-        int indexOfDelimiter = string.indexOf(delimiter);
-        return string.substring(indexOfDelimiter + delimiter.length()).trim();
-    }
+    //=====old flag helpers======
+//    private static String extractBefore(String string, String delimiter){
+//        int indexOfDelimiter = string.indexOf(delimiter);
+//        return string.substring(0, indexOfDelimiter).trim();
+//    }
+//
+//    private static String extractBetween(String string, String startDelimiter, String endDelimiter) {
+//        int indexOfStartDelimiter = string.indexOf(startDelimiter);
+//        int indexOfEndDelimiter = string.indexOf(endDelimiter);
+//
+//        return string.substring(indexOfStartDelimiter + startDelimiter.length(), indexOfEndDelimiter).trim();
+//    }
+//
+//    private static String extractAfter(String string, String delimiter) {
+//        int indexOfDelimiter = string.indexOf(delimiter);
+//        return string.substring(indexOfDelimiter + delimiter.length()).trim();
+//    }
 }
