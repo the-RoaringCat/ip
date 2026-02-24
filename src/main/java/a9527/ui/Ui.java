@@ -28,6 +28,8 @@ public class Ui {
         });
     }
     public static void print(String string) {
-        printWithinLines(() -> System.out.println("\t" + string));
+        //no direct print as only one tab is printed when string is converted from string builder
+        String[] strings = string.split(System.lineSeparator());
+        print(strings);
     }
 }

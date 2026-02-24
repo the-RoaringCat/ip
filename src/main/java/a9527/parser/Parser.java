@@ -48,44 +48,34 @@ public class Parser {
     }
 
     private static FindCommand parseFind(String string) throws A9527Exception {
-        if(string.isBlank()) {
-            throw new A9527Exception("haiyah, delete expects one task index");
-        }
+        checkNotBlank(string, "find");
         return new FindCommand(string);
     }
 
     private static DeleteCommand parseDelete(String string) throws A9527Exception {
-        if(string.isBlank()) {
-            throw new A9527Exception("haiyah, delete expects one task index");
-        }
+        checkNotBlank(string, "delete");
         return new DeleteCommand(string);
     }
 
     private static ByeCommand parseBye(String string) throws A9527Exception {
-        if(!string.isBlank()) {
-            throw new A9527Exception("haiyah, bye expects no param");
-        }
+        checkBlank(string, "bye");
         return new ByeCommand();
     }
 
     private static ListCommand parseList(String  string) throws A9527Exception {
-        if(!string.isBlank()) {
-            throw new A9527Exception("haiyah, list expects no param");
-        }
+        checkBlank(string, "list");
         return new ListCommand();
     }
 
     private static TodoCommand parseTodo(String string) throws A9527Exception {
-        if(string.isBlank()) {
-            throw new A9527Exception("haiyah, todo expects one task description");
-        }
+        checkNotBlank(string, "todo");
         return new TodoCommand(string);
     }
 
     private static DeadlineCommand parseDeadline(String string) throws A9527Exception{
-        if(!string.contains("/by")) {
-            throw new A9527Exception("haiyah, deadline expects /by to indicate deadline");
-        }
+        final String[] FLAGS = {"/by"};
+        checkFlags(string, FLAGS, "deadline");
+
         String description = extractBefore(string, "/by");
         String deadline = extractAfter(string, "/by");
 
@@ -93,9 +83,9 @@ public class Parser {
     }
 
     private static EventCommand parseEvent(String string) throws A9527Exception {
-        if(!string.contains("/from") || !string.contains("/to")) {
-            throw new A9527Exception("haiyah, event expects /from to indicate start time and /to to indicate end time");
-        }
+        final String[] FLAGS = {"/from", "/to"};
+        checkFlags(string, FLAGS, "event");
+
         String description = extractBefore(string, "/from");
         String from = extractBetween(string, "/from", "/to");
         String to = extractAfter(string, "/to");
@@ -104,18 +94,45 @@ public class Parser {
     }
 
     private static MarkCommand parseMark(String string) throws A9527Exception {
-        if(string.isBlank()) {
-            throw new A9527Exception("haiyah, mark expects one task index");
-        }
+        checkNotBlank(string, "mark");
         return new MarkCommand(string);
     }
 
     private static UnmarkCommand parseUnmark(String string) throws A9527Exception {
-        if(string.isBlank()) {
-            throw new A9527Exception("haiyah, unmark expects one task index");
-        }
+        checkNotBlank(string, "unmark");
         return new UnmarkCommand(string);
     }
+
+    //======helper=======
+    private static void checkFlags(String string, String[] flags, String commandName) throws A9527Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        for(String flag : flags) {
+            if(!string.contains(flag)) {
+                errorMessage.append("haiyah, ")
+                        .append(commandName)
+                        .append(" expects the flag: ")
+                        .append(flag)
+                        .append(System.lineSeparator());
+            }
+        }
+        if(!errorMessage.isEmpty()) {
+            errorMessage.setLength(errorMessage.length() - 1); //remove the last lineSeparator
+            throw new A9527Exception(errorMessage.toString());
+        }
+    }
+
+    private static void checkNotBlank(String string, String commandName) throws A9527Exception {
+        if(string.isBlank()) {
+            throw new A9527Exception("haiyah, " + commandName + "expects parameter(s)");
+        }
+    }
+
+    private static void checkBlank(String string, String commandName) throws A9527Exception {
+        if(!string.isBlank()) {
+            throw new A9527Exception("haiyah, " + commandName + "expects no parameter");
+        }
+    }
+
 
     private static String extractBefore(String string, String delimiter){
         int indexOfDelimiter = string.indexOf(delimiter);
