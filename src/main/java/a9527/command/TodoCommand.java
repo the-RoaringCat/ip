@@ -12,8 +12,10 @@ public class TodoCommand extends Command{
     }
 
     @Override
-    public void execute() {
-
+    public void execute() throws A9527Exception {
+        if(description.isBlank()) {
+            throw new A9527Exception("haiyah, todo expects non empty param(s)");
+        }
         TaskList.printAndAdd(new Todo(description));
     }
 }

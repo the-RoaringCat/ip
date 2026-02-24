@@ -7,7 +7,7 @@ public class Parser {
 
     public static Command parse(String input) throws A9527Exception {
         if(input.contains("|")) {
-            throw new A9527Exception("haiyah, | is illegal character");
+            throw new A9527Exception("haiyah, | and / are illegal characters");
         }
         String[] words = input.trim().split("\\s+"); //separate into an array of words from any whitespace sequence
         String commandWord = words[0];
@@ -68,27 +68,30 @@ public class Parser {
     }
 
     private static TodoCommand parseTodo(String string) throws A9527Exception {
-        checkNotBlank(string, "todo");
-        return new TodoCommand(string);
+        final String[] FLAGS = {"/name"};
+        checkFlags(string, FLAGS, "todo");
+
+        String description = extractFlagParam(string, "/name");
+        return new TodoCommand(description);
     }
 
     private static DeadlineCommand parseDeadline(String string) throws A9527Exception{
-        final String[] FLAGS = {"/by"};
+        final String[] FLAGS = {"/by", "/name"};
         checkFlags(string, FLAGS, "deadline");
 
-        String description = extractBefore(string, "/by");
-        String deadline = extractAfter(string, "/by");
+        String description = extractFlagParam(string, "/name");
+        String deadline = extractFlagParam(string, "/by");
 
         return new DeadlineCommand(description, deadline);
     }
 
     private static EventCommand parseEvent(String string) throws A9527Exception {
-        final String[] FLAGS = {"/from", "/to"};
+        final String[] FLAGS = {"/from", "/to", "/name"};
         checkFlags(string, FLAGS, "event");
 
-        String description = extractBefore(string, "/from");
-        String from = extractBetween(string, "/from", "/to");
-        String to = extractAfter(string, "/to");
+        String description = extractFlagParam(string, "/name");
+        String from = extractFlagParam(string, "/from");
+        String to = extractFlagParam(string, "/to");
 
         return new EventCommand(description, from, to);
     }
@@ -133,6 +136,16 @@ public class Parser {
         }
     }
 
+    private static String extractFlagParam(String string, String flag) {
+        String[] arguments = string.split("(?=/)"); //keep the delimiter at the start
+        for(String argument : arguments){
+            if(argument.startsWith(flag)){
+                return (argument.replaceFirst(flag, "").trim()); //extract the param of the flag
+            }
+        }
+
+        return "";
+    }
 
     private static String extractBefore(String string, String delimiter){
         int indexOfDelimiter = string.indexOf(delimiter);
