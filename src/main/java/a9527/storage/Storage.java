@@ -4,10 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+
+    public static void makeDir(String path) throws IOException {
+        Path dataPath = Paths.get(path);
+        Files.createDirectories(dataPath); //do nothing when dir is alr there
+    }
 
     public static void clearFile(String path) {
         try {

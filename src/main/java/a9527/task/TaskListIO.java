@@ -93,9 +93,15 @@ public class TaskListIO {
         return newTask;
     }
 
-    public static void loadTasksFromFile(String path) throws FileNotFoundException, A9527Exception {
+    public static void loadTasksFromFile(String path) throws A9527Exception {
         //format: taskType | isDone | description | additional 1 | additional 2
-        ArrayList<String> texts = Storage.readFromFile(path);
+        ArrayList<String> texts = new ArrayList<>();
+        try{
+            texts = Storage.readFromFile(path);
+        } catch (FileNotFoundException e) {
+            throw new A9527Exception("haiyah, I cannot find the storage file.");
+        }
+
         StringBuilder errorMessage = new StringBuilder(path + " is corrupted :(");
 
         int line = 1;

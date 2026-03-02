@@ -31,6 +31,7 @@
  */
 import a9527.a9527.A9527;
 import a9527.date.Date;
+import a9527.storage.Storage;
 import a9527.task.TaskListIO;
 import a9527.ui.Ui;
 
@@ -41,6 +42,7 @@ public class Main {
         A9527.greetUser();
 
         try{
+            Storage.makeDir("data");
             TaskListIO.loadTasksFromFile("data/tasks.txt");
         } catch (Exception e) {
             Ui.print(e.getMessage());
