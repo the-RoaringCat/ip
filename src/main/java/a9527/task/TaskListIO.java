@@ -73,7 +73,7 @@ public class TaskListIO {
     }
 
     private static void checkTaskDataIntegrity(String taskData) throws A9527Exception {
-        String[] fields = taskData.split("\\s*\\|\\s*");
+        String[] fields = taskData.split("\\s*\\|\\s*", -1);
 
         checkTaskType(fields[0]);
         checkFieldsLength(fields);

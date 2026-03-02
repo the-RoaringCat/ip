@@ -45,7 +45,7 @@ public class Main {
         } catch (Exception e) {
             Ui.print(e.getMessage());
         }
-        Echo.test();
+        Echo.start();
         try{
             TaskListIO.storeTasksToFile("data/tasks.txt");
         } catch (IOException e) {

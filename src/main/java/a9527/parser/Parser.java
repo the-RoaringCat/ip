@@ -126,13 +126,13 @@ public class Parser {
 
     private static void checkNotBlank(String string, String commandName) throws A9527Exception {
         if(string.isBlank()) {
-            throw new A9527Exception("haiyah, " + commandName + "expects parameter(s)");
+            throw new A9527Exception("haiyah, " + commandName + " expects parameter(s)");
         }
     }
 
     private static void checkBlank(String string, String commandName) throws A9527Exception {
         if(!string.isBlank()) {
-            throw new A9527Exception("haiyah, " + commandName + "expects no parameter");
+            throw new A9527Exception("haiyah, " + commandName + " expects no parameter");
         }
     }
 
@@ -145,22 +145,4 @@ public class Parser {
         }
         return "";
     }
-
-    //=====old flag helpers======
-//    private static String extractBefore(String string, String delimiter){
-//        int indexOfDelimiter = string.indexOf(delimiter);
-//        return string.substring(0, indexOfDelimiter).trim();
-//    }
-//
-//    private static String extractBetween(String string, String startDelimiter, String endDelimiter) {
-//        int indexOfStartDelimiter = string.indexOf(startDelimiter);
-//        int indexOfEndDelimiter = string.indexOf(endDelimiter);
-//
-//        return string.substring(indexOfStartDelimiter + startDelimiter.length(), indexOfEndDelimiter).trim();
-//    }
-//
-//    private static String extractAfter(String string, String delimiter) {
-//        int indexOfDelimiter = string.indexOf(delimiter);
-//        return string.substring(indexOfDelimiter + delimiter.length()).trim();
-//    }
 }

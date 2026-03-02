@@ -32,9 +32,9 @@ public class TaskList {
         }
     }
 
-    public static Task getTaskOfIndex(int index) {
-        //assume index boundary is checked in the caller
-        return tasks.get(index);
+    public static Task getTaskOfIndex(int taskIndex) throws A9527Exception {
+        checkTaskIndexBound(taskIndex);
+        return tasks.get(taskIndex - 1); //because start from 0
     }
 
     public static void printAndAdd(Task task) {
@@ -49,8 +49,7 @@ public class TaskList {
     }
 
     public static void printAndDelete(int taskIndex) throws A9527Exception{
-        checkTaskIndexBound(taskIndex);
-        Task deletedTask = getTaskOfIndex(taskIndex - 1);
+        Task deletedTask = getTaskOfIndex(taskIndex);
         tasks.remove(taskIndex - 1);
         String[] messages = {
                 "Ok, I've deleted this task:",
@@ -99,24 +98,24 @@ public class TaskList {
 
 
     public static void printAddUnmark(int taskIndex) throws A9527Exception{
-        checkTaskIndexBound(taskIndex);
-        String[] strings = new String[2];
+        Task taskToUnmark = getTaskOfIndex(taskIndex);
+        taskToUnmark.markNotDone();
 
-        strings[0] = (getTaskOfIndex(taskIndex - 1).isDone()) ? "\tHaiyah, so you didn't do?" : "\tI know you didn't finish";
-        getTaskOfIndex(taskIndex - 1).markNotDone();
-        strings[1] = ("\t"+ getTaskOfIndex(taskIndex - 1).toString());
-
-        Ui.print(strings);
+        //Ui
+        ArrayList<String> message = new ArrayList<>();
+        message.add("Ok, task " + taskIndex + " unmarked");
+        message.add(taskToUnmark.toString());
+        Ui.print(message);
     }
 
     public static void printAndMark(int taskIndex) throws A9527Exception{
-        checkTaskIndexBound(taskIndex);
-        String[] strings = new String[2];
+        Task taskToMark = getTaskOfIndex(taskIndex);
+        taskToMark.markDone();
 
-        strings[0] = (getTaskOfIndex(taskIndex - 1).isDone()) ? "\tDone already, you just redo ah?" : "\tGood good, finally done! Need wait so long :)";
-        getTaskOfIndex(taskIndex - 1).markDone();
-        strings[1] = ("\t"+ getTaskOfIndex(taskIndex - 1).toString());
-
-        Ui.print(strings);
+        //Ui
+        ArrayList<String> message = new ArrayList<>();
+        message.add("Ok, task " + taskIndex + " marked");
+        message.add(taskToMark.toString());
+        Ui.print(message);
     }
 }

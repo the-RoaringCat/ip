@@ -8,7 +8,7 @@ import a9527.ui.Ui;
 
 public class Echo {
 
-    public static void test() {
+    public static void start() {
         String input;
 
         Scanner in = new Scanner(System.in);
@@ -21,19 +21,6 @@ public class Echo {
                 Ui.print(e.getMessage());
             }
         }
-        String homo = """
-                 　      .▃▆█▇▄▖
-                　　 　▟◤▖　　　◥█▎
-                　　　◢◤　 ▐　　　　▐▉
-                　▗◤　　　▂　▗▖　　▕█▎
-                　◤　▗▅▖◥▄　▀◣　　█▊
-                ▐　▕▎◥▖◣◤　　　　◢██
-                █◣　◥▅█▀　　　　▐██◤
-                ▐█▙▂　　　 ◢██◤
-                　◥██◣　　　　◢▄◤
-                　　　▀██▅▇▀""";
-
-        System.out.println(homo);
     }
 
 }
