@@ -9,6 +9,13 @@ public class FindCommand extends Command{
     public FindCommand(String description) {
         this.description = description;
     }
+
+    /**
+     * Executes find command.
+     * <p>
+     * Find tasks with matching description.
+     * @throws A9527CommandParamException if the description is blank.
+     */
     @Override
     public void execute() throws A9527CommandParamException {
         checkNotBlank("find", description);

@@ -5,6 +5,12 @@ import java.util.Arrays;
 
 public class Parser {
 
+    /**
+     * Parses the user input to an executable command.
+     * @param input A string that a user inputs.
+     * @return a command that can be executed.
+     * @throws A9527Exception if any parsing error occurs.
+     */
     public static Command parse(String input) throws A9527Exception {
         if(input.contains("|")) {
             throw new A9527CommandSyntaxException("haiyah, | is illegal character");
@@ -87,15 +93,23 @@ public class Parser {
         return new EventCommand(params[0], params[1], params[2]);
     }
 
-    private static MarkCommand parseMark(String string) throws A9527Exception {
+    private static MarkCommand parseMark(String string) {
         return new MarkCommand(string);
     }
 
-    private static UnmarkCommand parseUnmark(String string) throws A9527Exception {
+    private static UnmarkCommand parseUnmark(String string) {
         return new UnmarkCommand(string);
     }
 
     //======helper=======
+
+    /**
+     * Checks that the string contains all the flags.
+     * @param string command's argument
+     * @param flags array of flags
+     * @param commandName the type of the command for checking
+     * @throws A9527CommandSyntaxException if there are missing flags
+     */
     private static void checkContainFlags(String string, String[] flags, String commandName) throws A9527CommandSyntaxException {
         StringBuilder errorMessage = new StringBuilder();
         for(String flag : flags) {
@@ -119,6 +133,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the parameters that correspond to their flags.
+     * <p>
+     *     The order of the parameters in the returned array is the same as the order of the corresponding input flags in its array.
+     * </p>
+     * <p>
+     *     For duplicated flags, only the first occurrence would be processed, the rest would be ignored.
+     * </p>
+     * <p>
+     *     For empty parameter, it will be an empty string in the returned array.
+     * </p>
+     * @param string a string of flags with their parameters
+     * @param flags array of flags
+     * @return a string array that contains the parameters indicated by the flags.
+     */
     private static String[] extractFlagParam(String string, String... flags) {
         String[] params = new String[flags.length];
         Arrays.fill(params, ""); //for compatibility with isEmpty isBlank since array's initialised to null

@@ -72,6 +72,11 @@ public class TaskListIO {
         }
     }
 
+    /**
+     * Checks if a string representation of task is correct for storage.
+     * @param taskData a string
+     * @throws A9527Exception if the format is wrong
+     */
     private static void checkTaskDataIntegrity(String taskData) throws A9527Exception {
         String[] fields = taskData.split("\\s*\\|\\s*", -1);
 
@@ -93,6 +98,11 @@ public class TaskListIO {
         return newTask;
     }
 
+    /**
+     * Reads the file and converts each line to a Task instance, which is stored in tasklist.
+     * @param path a string
+     * @throws A9527Exception if IO error occurs or the file's content is not recognizable.
+     */
     public static void loadTasksFromFile(String path) throws A9527Exception {
         //format: taskType | isDone | description | additional 1 | additional 2
         ArrayList<String> texts = new ArrayList<>();

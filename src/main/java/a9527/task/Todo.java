@@ -8,11 +8,19 @@ public class Todo extends Task{
         super(description, isDone);
     }
 
+    /**
+     *
+     * @return Returns a string representation of a todo task
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    /**
+     *
+     * @return Returns a string representation of a todo task for storage
+     */
     @Override
     public String toStorageFormat() {
         return "T | " + super.toStorageFormat();

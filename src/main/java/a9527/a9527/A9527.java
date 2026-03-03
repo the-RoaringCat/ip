@@ -6,14 +6,24 @@ public class A9527 {
 
 
 
-    
+    /**
+     * Returns boolean state of shouldExit.
+     * @return shouldExit
+     */
     public static boolean shouldExit() {
         return shouldExit;
     }
+
+    /**
+     * Sets shouldExit to true
+     */
     public static void assertShouldExit() {
         shouldExit = true;
     }
 
+    /**
+     * Prints greeting message to the user on CLI
+     */
     public static void greetUser() {
         String logo = """
                 \t  ___  ____  ____  _____
@@ -25,6 +35,9 @@ public class A9527 {
         Ui.print("Hello I'm\n" + logo + "\tWhat you want me to do now?");
     }
 
+    /**
+     * Prints farewell message to the user on CLI
+     */
     public static void byeUser() {
         String[] strings = {"Task list deleted :(", "(^&#$^()@&)*#(*^&(^*"};
         Ui.print(strings);

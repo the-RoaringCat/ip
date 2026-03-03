@@ -5,8 +5,8 @@ import a9527.date.Date;
 import java.time.LocalTime;
 
 public class Deadline extends Task{
-    //protected String by;
     private Date by;
+
 
     public Deadline(String description, String by) {
         super(description);
@@ -18,19 +18,19 @@ public class Deadline extends Task{
         this.by = new Date(by);
     }
 
-    public void setBy(String by) {
-        this.by = new Date(by);
-    }
-
-    public Date getBy() {
-        return by;
-    }
-
+    /**
+     *
+     * @return Returns a string representation of a deadline task
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.toString() + ")";
     }
 
+    /**
+     *
+     * @return Returns a string representation of a deadline task for storage
+     */
     @Override
     public String toStorageFormat() {
         return "D | " + super.toStorageFormat() + " | " + by.toString();

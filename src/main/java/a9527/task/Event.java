@@ -18,27 +18,19 @@ public class Event extends Task{
         this.end = new Date (end);
     }
 
-    public void setStart(String start) {
-        this.start = new Date(start);
-    }
-
-    public void setEnd(String end) {
-        this.end = new Date (end);
-    }
-
-    public Date getStart() {
-        return start;
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
+    /**
+     *
+     * @return Returns a string representation of an event task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start.toString() + " to: " + end.toString() + ")";
     }
 
+    /**
+     *
+     * @return Returns a string representation of an event task for storage
+     */
     @Override
     public String toStorageFormat() {
         return "E | " + super.toStorageFormat() + " | " + start.toString() + " | " + end.toString();

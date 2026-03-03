@@ -11,6 +11,14 @@ public class TodoCommand extends Command{
         this.description = description;
     }
 
+    /**
+     * Executes todo command.
+     * <p>
+     *     Adds a todo task to the tasklist.
+     * </p>
+     *
+     * @throws A9527CommandParamException if the description is blank.
+     */
     @Override
     public void execute() throws A9527CommandParamException {
         checkNotBlank("todo", description);

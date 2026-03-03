@@ -16,31 +16,43 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     *
+     * @return Returns a string representation of a task
+     */
     @Override
     public String toString() {
         return "[" + (isDone? "X" : " ") + "] " + description;
     }
 
+    /**
+     *
+     * @return Returns a string representation of a task for storage
+     */
     public String toStorageFormat() {
         return ((isDone ? "true" : "false") + " | " + description);
     }
 
-    public String getDescription() {
-        return this.description;
-    }
 
+    /**
+     *
+     * @param description a string
+     * @return Returns true if the task description matches the input description.
+     */
     public boolean isContain(String description) {
         return this.description.contains(description);
     }
 
-
-    public boolean isDone() {
-        return isDone;
-    }
-
+    /**
+     * Marks the task as done
+     */
     public void markDone() {
         this.isDone = true;
     }
+
+    /**
+     * Marks the task as not done
+     */
     public void markNotDone() {
         this.isDone = false;
     }
