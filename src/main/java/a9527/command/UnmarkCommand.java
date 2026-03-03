@@ -10,12 +10,8 @@ public class UnmarkCommand extends Command{
 
     @Override
     public void execute() throws A9527Exception {
-        int finalTaskIndex;
-        try {
-            finalTaskIndex = Integer.parseInt(taskIndex);
-        } catch (NumberFormatException e) {
-            throw new A9527Exception("haiyah, unmark expects an integer param");
-        }
-        TaskList.printAddUnmark(finalTaskIndex);
+        checkNotBlank(taskIndex);
+        int taskIndexInt = checkInt("unmark", taskIndex);
+        TaskList.printAddUnmark(taskIndexInt);
     }
 }

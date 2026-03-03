@@ -4,6 +4,9 @@ import a9527.ui.Ui;
 public class A9527 {
     private static boolean shouldExit = false;
 
+
+
+    
     public static boolean shouldExit() {
         return shouldExit;
     }

@@ -1,6 +1,6 @@
 package a9527.command;
 
-import a9527.exception.A9527Exception;
+import a9527.exception.A9527CommandParamException;
 import a9527.task.*;
 
 public class TodoCommand extends Command{
@@ -12,10 +12,8 @@ public class TodoCommand extends Command{
     }
 
     @Override
-    public void execute() throws A9527Exception {
-        if(description.isBlank()) {
-            throw new A9527Exception("haiyah, todo expects non empty param(s)");
-        }
+    public void execute() throws A9527CommandParamException {
+        checkNotBlank("todo", description);
         TaskList.printAndAdd(new Todo(description));
     }
 }

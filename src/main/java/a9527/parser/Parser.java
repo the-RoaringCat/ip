@@ -1,13 +1,13 @@
 package a9527.parser;
 import a9527.command.*;
-import a9527.exception.A9527Exception;
+import a9527.exception.*;
 import java.util.Arrays;
 
 public class Parser {
 
     public static Command parse(String input) throws A9527Exception {
         if(input.contains("|")) {
-            throw new A9527Exception("haiyah, | is illegal character");
+            throw new A9527CommandSyntaxException("haiyah, | is illegal character");
         }
         String[] words = input.trim().split("\\s+"); //separate into an array of words from any whitespace sequence
         String commandWord = words[0];
@@ -41,73 +41,62 @@ public class Parser {
             case "find" -> {
                 return parseFind(argument);
             }
-            case "" -> throw new A9527Exception("haiyah, tell me do something");
+            case "" -> throw new A9527CommandSyntaxException("haiyah, tell me do something");
 
-            default -> throw new A9527Exception("haiyah, I don't understand");
+            default -> throw new A9527CommandSyntaxException("haiyah, I don't understand");
         }
     }
 
-    private static FindCommand parseFind(String string) throws A9527Exception {
-        checkNotBlank(string, "find");
+    private static FindCommand parseFind(String string) {
         return new FindCommand(string);
     }
 
-    private static DeleteCommand parseDelete(String string) throws A9527Exception {
-        checkNotBlank(string, "delete");
+    private static DeleteCommand parseDelete(String string) {
         return new DeleteCommand(string);
     }
 
-    private static ByeCommand parseBye(String string) throws A9527Exception {
+    private static ByeCommand parseBye(String string) throws A9527CommandParamException {
         checkBlank(string, "bye");
         return new ByeCommand();
     }
 
-    private static ListCommand parseList(String  string) throws A9527Exception {
+    private static ListCommand parseList(String  string) throws A9527CommandParamException {
         checkBlank(string, "list");
         return new ListCommand();
     }
 
-    private static TodoCommand parseTodo(String string) throws A9527Exception {
+    private static TodoCommand parseTodo(String string) throws A9527CommandSyntaxException {
         final String[] FLAGS = {"/name"};
         checkContainFlags(string, FLAGS, "todo");
 
-        String description = extractFlagParam(string, "/name");
-        return new TodoCommand(description);
+        String[] params = extractFlagParam(string, "/name");
+        return new TodoCommand(params[0]);
     }
 
-    private static DeadlineCommand parseDeadline(String string) throws A9527Exception{
-        final String[] FLAGS = {"/by", "/name"};
+    private static DeadlineCommand parseDeadline(String string) throws A9527CommandSyntaxException{
+        final String[] FLAGS = {"/name", "/by"};
         checkContainFlags(string, FLAGS, "deadline");
-
-        String description = extractFlagParam(string, "/name");
-        String deadline = extractFlagParam(string, "/by");
-
-        return new DeadlineCommand(description, deadline);
+        String[] params = extractFlagParam(string, FLAGS);
+        return new DeadlineCommand(params[0], params[1]);
     }
 
-    private static EventCommand parseEvent(String string) throws A9527Exception {
-        final String[] FLAGS = {"/from", "/to", "/name"};
+    private static EventCommand parseEvent(String string) throws A9527CommandSyntaxException {
+        final String[] FLAGS = {"/name", "/from", "/to"};
         checkContainFlags(string, FLAGS, "event");
-
-        String description = extractFlagParam(string, "/name");
-        String from = extractFlagParam(string, "/from");
-        String to = extractFlagParam(string, "/to");
-
-        return new EventCommand(description, from, to);
+        String[] params = extractFlagParam(string, FLAGS);
+        return new EventCommand(params[0], params[1], params[2]);
     }
 
     private static MarkCommand parseMark(String string) throws A9527Exception {
-        checkNotBlank(string, "mark");
         return new MarkCommand(string);
     }
 
     private static UnmarkCommand parseUnmark(String string) throws A9527Exception {
-        checkNotBlank(string, "unmark");
         return new UnmarkCommand(string);
     }
 
     //======helper=======
-    private static void checkContainFlags(String string, String[] flags, String commandName) throws A9527Exception {
+    private static void checkContainFlags(String string, String[] flags, String commandName) throws A9527CommandSyntaxException {
         StringBuilder errorMessage = new StringBuilder();
         for(String flag : flags) {
             if(!string.contains(flag)) {
@@ -120,29 +109,30 @@ public class Parser {
         }
         if(!errorMessage.isEmpty()) {
             errorMessage.setLength(errorMessage.length() - 1); //remove the last lineSeparator
-            throw new A9527Exception(errorMessage.toString());
+            throw new A9527CommandSyntaxException(errorMessage.toString());
         }
     }
 
-    private static void checkNotBlank(String string, String commandName) throws A9527Exception {
-        if(string.isBlank()) {
-            throw new A9527Exception("haiyah, " + commandName + " expects parameter(s)");
-        }
-    }
-
-    private static void checkBlank(String string, String commandName) throws A9527Exception {
+    private static void checkBlank(String string, String commandName) throws A9527CommandParamException {
         if(!string.isBlank()) {
-            throw new A9527Exception("haiyah, " + commandName + " expects no parameter");
+            throw new A9527CommandParamException("haiyah, " + commandName + " expects no parameter");
         }
     }
 
-    private static String extractFlagParam(String string, String flag) {
-        String[] arguments = string.split("(?=/)"); //keep the delimiter at the start
-        for(String argument : arguments){
-            if(argument.startsWith(flag)){
-                return (argument.replaceFirst(flag, "").trim()); //extract the param of the flag
+    private static String[] extractFlagParam(String string, String... flags) {
+        String[] params = new String[flags.length];
+        Arrays.fill(params, ""); //for compatibility with isEmpty isBlank since array's initialised to null
+
+        String[] arguments = string.split("(?=/)");
+
+        for(int i = 0; i < flags.length; i++) {
+            for(String argument : arguments) {
+                if(argument.startsWith(flags[i])){
+                    params[i] = argument.replaceFirst(flags[i], "").trim();
+                    break; //this means duplicated flags will be ignored from second occurrence onward
+                }
             }
         }
-        return "";
+        return params;
     }
 }

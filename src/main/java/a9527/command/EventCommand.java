@@ -15,9 +15,7 @@ public class EventCommand extends Command{
 
     @Override
     public void execute() throws A9527Exception {
-        if(description.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new A9527Exception("haiyah, event expects non empty param(s)");
-        }
+        checkNotBlank("event", description, from, to);
         TaskList.printAndAdd(new Event(description, from, to));
     }
 }

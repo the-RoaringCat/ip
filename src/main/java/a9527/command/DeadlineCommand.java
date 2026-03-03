@@ -1,5 +1,5 @@
 package a9527.command;
-import a9527.exception.A9527Exception;
+import a9527.exception.A9527CommandParamException;
 import a9527.task.*;
 
 public class DeadlineCommand extends Command{
@@ -12,10 +12,8 @@ public class DeadlineCommand extends Command{
     }
 
     @Override
-    public void execute() throws A9527Exception {
-        if(description.isBlank() || deadline.isBlank()) {
-            throw new A9527Exception("haiyah, deadline expects non empty param(s)");
-        }
+    public void execute() throws A9527CommandParamException {
+        checkNotBlank("deadline", description, deadline);
         TaskList.printAndAdd(new Deadline(description, deadline));
     }
 }
