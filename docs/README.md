@@ -6,7 +6,7 @@
 3. Open a command terminal, and `cd` to this directory.
 4. Run `java -jar ip.jar` to start the chat bot.
 ## Features
-> [!TIP]
+>  **💡 TIP**
 > - Words in `UPPER_CASE` are parameters to be supplied by the user.
 > 
 > - `/...` is a flag to indicate different parameters.<br>
@@ -99,6 +99,6 @@ The formats of each type of task are as follow:
 
 `is_done` should be replaced by a string `true` or `false` in the actual file to indicate if the task is done
 
-> [!CAUTION]
+> ⛔ **WARNING** 
 > If any lines, i.e. tasks, in the `txt` file do not follow the above format, 9527 will discard those lines and continue with the rest of recognizable lines.<br>
 A message of which lines are affected would be displayed.
