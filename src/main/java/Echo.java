@@ -17,6 +17,7 @@ public class Echo {
             try {
                 Command cmd = Parser.parse(input);
                 cmd.execute();
+                TaskListIO.storeTasksToFile("data/tasks.txt");
             } catch (Exception e) {
                 Ui.print(e.getMessage());
             }
