@@ -109,7 +109,7 @@ public class TaskListIO {
         try{
             texts = Storage.readFromFile(path);
         } catch (FileNotFoundException e) {
-            throw new A9527Exception("haiyah, I cannot find the storage file.");
+            throw new A9527Exception("haiyah, I cannot find the storage file." + System.lineSeparator() + "A txt file will be created after adding your first task");
         }
 
         StringBuilder errorMessage = new StringBuilder(path + " is corrupted :(");
