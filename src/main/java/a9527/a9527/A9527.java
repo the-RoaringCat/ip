@@ -39,7 +39,7 @@ public class A9527 {
      * Prints farewell message to the user on CLI
      */
     public static void byeUser() {
-        String[] strings = {"Task list deleted :(", "(^&#$^()@&)*#(*^&(^*"};
+        String[] strings = {"Remember to do your task", "(^&#$^()@&)*#(*^&(^*"};
         Ui.print(strings);
     }
 }
